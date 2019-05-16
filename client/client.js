@@ -36,10 +36,7 @@ Template.articles.onCreated(function articleOnCreated() {
 Template.accueil.helpers({
   articles() {
 		// Show viewest articles at the top
-		viewsArt = Articles.find({}, {sort: {views: -1}, limit: 4});
-		console.log(viewsArt);
-
-    
+		viewsArt = Articles.find({}, {sort: {views: -1}, limit: 4});    
     return  viewsArt;
 	},
 });
