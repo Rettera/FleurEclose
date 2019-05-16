@@ -1,0 +1,300 @@
+<template name="mainLayout">
+
+     
+    {{> header}}
+    <div class="container-fluid" style="margin: 100px auto;">
+      {{> yield}}
+      </div>
+    {{> footer}}
+
+ </template>
+
+ 
+ <template name="header">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+       <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+             <span class="sr-only">Toggle navigation</span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             </button>
+             <a class="navbar-brand" href="#">{{#if currentUser}}Bienvenue {{ currentUser.profile.Pseudo }} {{else}} Fleur Eclose{{/if}}</a>
+          </div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+             <ul class="nav navbar-nav navbar-right">
+                <li><a href="/">Accueil</a></li>
+                <li><a href="/articles">Articles</a></li>
+                {{#if currentUser}}
+                <li><a href="/new">Nouvel Article</a></li>
+                {{else}}
+                <li ><a href="/new" class="disable">Nouvel Article</a></li>
+                {{/if}}
+                <li class="dropdown">
+                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Compte <b class="caret"></b></a>
+                   <ul class="dropdown-menu">
+                        {{#if currentUser}}
+                     <li><a href="#" class="logout">Logout</a></li>
+                        {{else}}
+                      <li><a href="/login">Login</a></li>
+                      {{/if}}
+                      {{#if currentUser}}
+                      <li><a href="/perso">Perso</a></li>
+                         {{else}}
+                     <li><a href="/register">Register</a></li>
+                       {{/if}}
+                      
+                   </ul>
+                </li>
+               
+             </ul>
+          </div>
+          <!-- /.navbar-collapse -->
+       </div>
+       <!-- /.container-collapse -->
+    </nav>
+ </template>
+
+ <template name="footer">
+    <div class="footer-area">
+       <div class="footer">
+          <div class="container">
+             <div class="col-md-4 footer-one">
+                <h5>About Us </h5>
+                <p>Cras sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                <div class="social-icons"> 
+                   <a href="https://www.facebook.com/"><i id="social-fb" class="fa fa-facebook-square fa-3x social"></i></a>
+                   <a href="https://twitter.com/"><i id="social-tw" class="fa fa-twitter-square fa-3x social"></i></a>
+                   <a href="https://plus.google.com/"><i id="social-gp" class="fa fa-google-plus-square fa-3x social"></i></a>
+                   <a href="mailto:bootsnipp@gmail.com"><i id="social-em" class="fa fa-envelope-square fa-3x social"></i></a>
+                </div>
+             </div>
+             <div class="col-md-3 footer-two">
+                <h5>Information </h5>
+                <ul>
+                   <li><a href="maintenance.html">Maintenance Tips</a></li>
+                   <li><a href="contact.html">Locations</a></li>
+                   <li><a href="about.html">Testimonials</a></li>
+                   <li><a href="about.html">Careers</a></li>
+                   <li><a href="about.html">Partners</a></li>
+                </ul>
+             </div>
+             <div class="col-md-3 footer-three">
+                <h5>Helpful Links </h5>
+                <ul>
+                   <li><a href="maintenance.html">Maintenance Tips</a></li>
+                   <li><a href="contact.html">Locations</a></li>
+                   <li><a href="about.html">Testimonials</a></li>
+                   <li><a href="about.html">Careers</a></li>
+                   <li><a href="about.html">Partners</a></li>
+                </ul>
+             </div>
+             <div class="col-md-2 footer-four">
+                <h5>Helpful Links </h5>
+                <ul>
+                   <li><a href="maintenance.html">Maintenance Tips</a></li>
+                   <li><a href="contact.html">Locations</a></li>
+                   <li><a href="about.html">Testimonials</a></li>
+                   <li><a href="about.html">Careers</a></li>
+                   <li><a href="about.html">Partners</a></li>
+                </ul>
+             </div>
+             <div class="clearfix"></div>
+          </div>
+       </div>
+       <div class="footer-bottom">
+          <div class="container">
+             <div class="row">
+                <div class="col-sm-12 text-center ">
+                   <div class="copyright-text">
+                      <p>CopyRight © 2017 Digital All Rights Reserved</p>
+                   </div>
+                </div>
+                <!-- End Col -->
+             </div>
+          </div>
+       </div>
+    </div>
+ </template>
+
+ <template name="notFound">
+    <section class="error_section">
+       <p class="error_section_subtitle">Cette page n'existe pas</p>
+       <h1 class="error_title">
+          <p>404</p>
+          404
+       </h1>
+       <a href="/" class="btn">Accueil</a>
+    </section>
+    <script>
+       const title = document.querySelector('.error_title')
+       
+       
+       //////// Light //////////
+       document.onmousemove = function(e) {
+         let x = e.pageX - window.innerWidth/2;
+         let y = e.pageY - window.innerHeight/2;
+         
+         title.style.setProperty('--x', x + 'px')
+         title.style.setProperty('--y', y + 'px')
+       }
+       
+       ////////////// Shadow ///////////////////
+       title.onmousemove = function(e) {
+         let x = e.pageX - window.innerWidth/2;
+         let y = e.pageY - window.innerHeight/2;
+       
+         let rad = Math.atan2(y, x).toFixed(2); 
+         let length = Math.round(Math.sqrt((Math.pow(x,2))+(Math.pow(y,2)))/10); 
+       
+         let x_shadow = Math.round(length * Math.cos(rad));
+         let y_shadow = Math.round(length * Math.sin(rad));
+       
+         title.style.setProperty('--x-shadow', - x_shadow + 'px')
+         title.style.setProperty('--y-shadow', - y_shadow + 'px')
+       
+       }
+                     
+    </script>
+ </template>
+
+ <template name="loading">
+    <style>
+      #loader {
+         bottom: 0;
+         height: 175px;
+         left: 0;
+         margin: auto;
+         position: absolute;
+         right: 0;
+         top: 0;
+         width: 175px;
+     }
+     #loader {
+         bottom: 0;
+         height: 175px;
+         left: 0;
+         margin: auto;
+         position: absolute;
+         right: 0;
+         top: 0;
+         width: 175px;
+     }
+     #loader .dot {
+         bottom: 0;
+         height: 100%;
+         left: 0;
+         margin: auto;
+         position: absolute;
+         right: 0;
+         top: 0;
+         width: 87.5px;
+     }
+     #loader .dot::before {
+         border-radius: 100%;
+         content: "";
+         height: 87.5px;
+         left: 0;
+         position: absolute;
+         right: 0;
+         top: 0;
+         transform: scale(0);
+         width: 87.5px;
+     }
+     #loader .dot:nth-child(7n+1) {
+         transform: rotate(45deg);
+     }
+     #loader .dot:nth-child(7n+1)::before {
+         animation: 0.8s linear 0.1s normal none infinite running load;
+         background: #00ff80 none repeat scroll 0 0;
+     }
+     #loader .dot:nth-child(7n+2) {
+         transform: rotate(90deg);
+     }
+     #loader .dot:nth-child(7n+2)::before {
+         animation: 0.8s linear 0.2s normal none infinite running load;
+         background: #00ffea none repeat scroll 0 0;
+     }
+     #loader .dot:nth-child(7n+3) {
+         transform: rotate(135deg);
+     }
+     #loader .dot:nth-child(7n+3)::before {
+         animation: 0.8s linear 0.3s normal none infinite running load;
+         background: #00aaff none repeat scroll 0 0;
+     }
+     #loader .dot:nth-child(7n+4) {
+         transform: rotate(180deg);
+     }
+     #loader .dot:nth-child(7n+4)::before {
+         animation: 0.8s linear 0.4s normal none infinite running load;
+         background: #0040ff none repeat scroll 0 0;
+     }
+     #loader .dot:nth-child(7n+5) {
+         transform: rotate(225deg);
+     }
+     #loader .dot:nth-child(7n+5)::before {
+         animation: 0.8s linear 0.5s normal none infinite running load;
+         background: #2a00ff none repeat scroll 0 0;
+     }
+     #loader .dot:nth-child(7n+6) {
+         transform: rotate(270deg);
+     }
+     #loader .dot:nth-child(7n+6)::before {
+         animation: 0.8s linear 0.6s normal none infinite running load;
+         background: #9500ff none repeat scroll 0 0;
+     }
+     #loader .dot:nth-child(7n+7) {
+         transform: rotate(315deg);
+     }
+     #loader .dot:nth-child(7n+7)::before {
+         animation: 0.8s linear 0.7s normal none infinite running load;
+         background: magenta none repeat scroll 0 0;
+     }
+     #loader .dot:nth-child(7n+8) {
+         transform: rotate(360deg);
+     }
+     #loader .dot:nth-child(7n+8)::before {
+         animation: 0.8s linear 0.8s normal none infinite running load;
+         background: #ff0095 none repeat scroll 0 0;
+     }
+     #loader .lading {
+         background-image: url("../images/loading.gif");
+         background-position: 50% 50%;
+         background-repeat: no-repeat;
+         bottom: -40px;
+         height: 20px;
+         left: 0;
+         position: absolute;
+         right: 0;
+         width: 180px;
+     }
+     @keyframes load {
+     100% {
+         opacity: 0;
+         transform: scale(1);
+     }
+     }
+     @keyframes load {
+     100% {
+         opacity: 0;
+         transform: scale(1);
+     }
+     }
+    </style>
+    <div class="row">
+		<div id="loader">
+    		<div class="dot"></div>
+			<div class="dot"></div>
+			<div class="dot"></div>
+			<div class="dot"></div>
+			<div class="dot"></div>
+			<div class="dot"></div>
+			<div class="dot"></div>
+			<div class="dot"></div>
+			<div class="lading"></div>
+		</div>
+	</div>
+ </template>
