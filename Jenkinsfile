@@ -1,34 +1,3 @@
-pipeline {
-    agent any
-    stages {
-        stage('Build') {
-            steps {
-                sh 'node --version'
-                sh 'echo "Hello World"'
-                sh '''
-                    echo "Multiline shell steps works too"
-                    ls -lah
-                '''
-            }
-        }
-    }
-}
-pipeline {
-    agent any
-    stages {
-        stage('Deploy') {
-            steps {
-                retry(3) {
-                    sh './flakey-deploy.sh'
-                }
-
-                timeout(time: 3, unit: 'MINUTES') {
-                    sh './health-check.sh'
-                }
-            }
-        }
-    }
-}
 node {
   stage('SCM') {
     checkout scm
@@ -39,17 +8,28 @@ node {
       sh "${scannerHome}/bin/sonar-scanner"
     }
   }
-}
-pipeline {
-    agent any
-    stages {
-        stage('Test') {
+          stage('Build') {
             steps {
-                sh 'echo "Fail!"; exit 1'
+                sh 'node --version'
+                sh 'echo "Hello World"'
+                sh '''
+                    echo "Multiline shell steps works too"
+                    ls -lah
+                '''
             }
         }
-    }
-    post {
+          stage('Deploy') {
+            steps {
+                retry(3) {
+                    sh './flakey-deploy.sh'
+                }
+
+                timeout(time: 3, unit: 'MINUTES') {
+                    sh './health-check.sh'
+                }
+            }
+        }
+            post {
         always {
             echo 'This will always run'
         }
